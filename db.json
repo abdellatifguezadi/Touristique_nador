@@ -1,0 +1,64 @@
+{
+  "lieux": [
+    {
+      "id": 1,
+      "nom": "Lagune de Marchica",
+      "categorie": "Sites naturels",
+      "description": "Une magnifique lagune offrant une biodiversité exceptionnelle et des vues panoramiques.",
+      "photos": [
+        "https://prod.cdn-medias.jeuneafrique.com/cdn-cgi/image/q=auto,f=auto,metadata=none,width=1280,height=960,fit=cover/https://prod.cdn-medias.jeuneafrique.com/medias/2016/06/17/image173407-e1467033540657.jpg",
+        "https://marchicaresort.com/media/cache/jadro_resize/rc/tCMnVANO1764931562/jadroRoot/medias/_alk5198.jpg"
+      ],
+      "horaires": {
+        "lundi": "08:00 - 18:00",
+        "mardi": "08:00 - 18:00",
+        "mercredi": "08:00 - 18:00",
+        "jeudi": "08:00 - 18:00",
+        "vendredi": "08:00 - 18:00",
+        "samedi": "08:00 - 18:00",
+        "dimanche": "08:00 - 18:00"
+      },
+      "tarifs": "Gratuit",
+      "adresse": "Nador, Maroc",
+      "moyens_transport": ["Bus", "Taxi", "Voiture"],
+      "accessibilite": "Accessible aux personnes à mobilité réduite",
+      "statut": "actif"
+    },
+    {
+      "id": 2,
+      "nom": "Plage de Charrana",
+      "categorie": "Plages",
+      "description": "Plage de sable fin idéale pour se détendre et profiter du soleil méditerranéen.",
+      "photos": [
+        "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/08/3e/a7/6d/getlstd-property-photo.jpg?w=1200&h=-1&s=1",
+        "https://fr.le360.ma/resizer/v2/3O6QFC674VH2RL6E3XGTGVBDAI.jpg?auth=87f591ca9ebf3d1ff1da73ae5ec7f8a3b4b98c2f5cbd1a08c56a55197d319e74&smart=true&width=1200&height=630"
+      ],
+      "horaires": {
+        "tous_les_jours": "06:00 - 20:00"
+      },
+      "tarifs": "Gratuit",
+      "adresse": "Charrana, Nador, Maroc",
+      "moyens_transport": ["Voiture", "Taxi"],
+      "accessibilite": "Plage accessible",
+      "statut": "actif"
+    },
+    {
+      "id": 3,
+      "nom": "Mont Gourougou",
+      "categorie": "Sites naturels",
+      "description": "Point culminant offrant des randonnées et vues spectaculaires sur la région.",
+      "photos": [
+        "https://img.over-blog-kiwi.com/1/52/73/10/20181103/ob_773ef5_dsc06648-large.JPG",
+        "https://generationvoyage.fr/wp-content/uploads/2019/11/escaliers-gourougou-randonnee.jpg"
+      ],
+      "horaires": {
+        "tous_les_jours": "08:00 - 17:00"
+      },
+      "tarifs": "Gratuit",
+      "adresse": "Mont Gourougou, Nador",
+      "moyens_transport": ["Voiture", "Taxi"],
+      "accessibilite": "Randonnée difficile pour personnes à mobilité réduite",
+      "statut": "actif"
+    }
+  ]
+}
