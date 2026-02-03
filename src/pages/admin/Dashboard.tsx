@@ -1,93 +1,135 @@
-import { useState, useEffect } from 'react';
-import { FaMapMarkedAlt, FaChartLine, FaComments, FaUsers } from 'react-icons/fa';
+import { useEffect, useMemo, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { FaCheckCircle, FaMapMarkedAlt, FaTimesCircle, FaUsers } from 'react-icons/fa';
 import { useAppDispatch, useAppSelector } from '../../app/store';
-import { fetchLieux, addLieu } from '../../features/lieux/lieuxSlice';
+import { fetchLieux } from '../../features/lieux/lieuxSlice';
 import StatCard from '../../components/dashboard/StatCard';
 import QuickActions from '../../components/dashboard/QuickActions';
-import AddPlaceForm from '../../components/forms/AddPlaceForm';
-import type { FormData } from '../../components/forms/AddPlaceForm';
-import { toast } from 'react-toastify';
+import RecentPlaces from '../../components/dashboard/RecentPlaces';
 import type { Lieu } from '../../types';
+import api from '../../services/api';
+
+const sortByMostRecent = (left: Lieu, right: Lieu) => {
+  const leftDate = new Date(left.updatedAt ?? left.createdAt ?? 0).getTime();
+  const rightDate = new Date(right.updatedAt ?? right.createdAt ?? 0).getTime();
+  return rightDate - leftDate;
+};
 
 const Dashboard = () => {
-  const [showForm, setShowForm] = useState(false);
   const dispatch = useAppDispatch();
-  const { lieux } = useAppSelector((state) => state.lieux);
+  const navigate = useNavigate();
+  const { lieux, isLoading } = useAppSelector((state) => state.lieux);
+  const [subscribersCount, setSubscribersCount] = useState(0);
 
   useEffect(() => {
     dispatch(fetchLieux());
   }, [dispatch]);
 
-  const handleSubmit = async (data: FormData) => {
-    try {
-      await dispatch(addLieu(data)).unwrap();
-      toast.success('Lieu ajouté avec succès!');
-      setShowForm(false);
-    } catch (error) {
-      toast.error('Erreur lors de l\'ajout du lieu');
-      console.error('Error adding place:', error);
-    }
-  };
+  useEffect(() => {
+    let isActive = true;
 
-  const handleCancel = () => {
-    setShowForm(false);
-  };
+    const loadSubscribersCount = async () => {
+      try {
+        const response = await api.get('/newsletterSubscribers');
+        if (isActive && Array.isArray(response.data)) {
+          setSubscribersCount(response.data.length);
+        }
+      } catch {
+        if (isActive) {
+          setSubscribersCount(0);
+        }
+      }
+    };
+
+    loadSubscribersCount();
+
+    return () => {
+      isActive = false;
+    };
+  }, []);
+
+  const activePlaces = useMemo(
+    () => lieux.filter((place) => place.statut === 'actif').length,
+    [lieux]
+  );
+
+  const inactivePlaces = lieux.length - activePlaces;
+
+  const categoryDistribution = useMemo(() => {
+    return lieux.reduce<Record<string, number>>((distribution, place) => {
+      distribution[place.categorie] = (distribution[place.categorie] ?? 0) + 1;
+      return distribution;
+    }, {});
+  }, [lieux]);
+
+  const recentPlaces = useMemo(
+    () => [...lieux].sort(sortByMostRecent).slice(0, 5),
+    [lieux]
+  );
 
   return (
     <div className="min-h-screen bg-gray-100 p-6">
-      <div className="max-w-7xl mx-auto">
-        <div className="mb-8 flex justify-between items-center">
-          <div>
-            <h1 className="text-3xl font-bold text-gray-800 mb-2">Tableau de Bord</h1>
-            <p className="text-gray-600">Bienvenue dans votre espace d'administration</p>
-          </div>
-          <button
-            onClick={() => setShowForm(!showForm)}
-            className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors font-medium"
-          >
-            {showForm ? '✕ Fermer' : '+ Ajouter un Lieu'}
-          </button>
+      <div className="max-w-7xl mx-auto space-y-8">
+        <div>
+          <h1 className="text-3xl font-bold text-gray-800 mb-2">Tableau de bord admin</h1>
+          <p className="text-gray-600">Vue globale des lieux et acces rapide aux actions de gestion.</p>
         </div>
 
-        {showForm && (
-          <div className="mb-8">
-            <AddPlaceForm onSubmit={handleSubmit} onCancel={handleCancel} />
-          </div>
-        )}
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           <StatCard
-            title="Total des Lieux"
-            value={lieux.length.toString()}
+            title="Total des lieux"
+            value={lieux.length}
             icon={<FaMapMarkedAlt />}
-            bgColor="bg-blue-500"
-            textColor="text-blue-600"
+            bgColor="bg-blue-600"
+            textColor="text-blue-700"
           />
           <StatCard
-            title="Lieux Actifs"
-            value={lieux.filter((l: Lieu) => l.statut === 'actif').length.toString()}
-            icon={<FaChartLine />}
-            bgColor="bg-green-500"
-            textColor="text-green-600"
+            title="Lieux actifs"
+            value={activePlaces}
+            icon={<FaCheckCircle />}
+            bgColor="bg-emerald-600"
+            textColor="text-emerald-700"
           />
           <StatCard
-            title="Catégories"
-            value={new Set(lieux.map((l: Lieu) => l.categorie)).size.toString()}
-            icon={<FaComments />}
-            bgColor="bg-purple-500"
-            textColor="text-purple-600"
+            title="Lieux inactifs"
+            value={inactivePlaces}
+            icon={<FaTimesCircle />}
+            bgColor="bg-red-600"
+            textColor="text-red-700"
           />
           <StatCard
-            title="Vues ce Mois"
-            value="1,234"
+            title="Abonnes newsletter"
+            value={subscribersCount}
             icon={<FaUsers />}
-            bgColor="bg-orange-500"
-            textColor="text-orange-600"
+            bgColor="bg-indigo-600"
+            textColor="text-indigo-700"
           />
         </div>
 
-        <div className="mb-8">
-          <QuickActions />
+        <QuickActions />
+
+        <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
+          <div className="bg-white rounded-xl shadow-md p-6">
+            <h2 className="text-xl font-bold text-gray-800 mb-4">Repartition par categorie</h2>
+            {isLoading ? (
+              <p className="text-sm text-gray-600">Chargement des statistiques...</p>
+            ) : Object.keys(categoryDistribution).length === 0 ? (
+              <p className="text-sm text-gray-600">Aucune categorie disponible.</p>
+            ) : (
+              <ul className="space-y-3">
+                {Object.entries(categoryDistribution)
+                  .sort((left, right) => right[1] - left[1])
+                  .map(([category, count]) => (
+                    <li key={category} className="flex items-center justify-between border-b border-gray-100 pb-2">
+                      <span className="text-sm text-gray-700">{category}</span>
+                      <span className="text-sm font-semibold text-gray-900">{count}</span>
+                    </li>
+                  ))}
+              </ul>
+            )}
+          </div>
+
+          <RecentPlaces lieux={recentPlaces} onViewAll={() => navigate('/admin/lieux')} />
         </div>
       </div>
     </div>

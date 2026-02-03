@@ -1,9 +1,9 @@
-import React from 'react';
+import type { ReactNode } from 'react';
 
 interface StatCardProps {
     title: string;
     value: string | number;
-    icon: React.ReactNode;
+    icon: ReactNode;
     bgColor: string;
     textColor: string;
 }
@@ -16,7 +16,9 @@ const StatCard = ({ title, value, icon, bgColor, textColor }: StatCardProps) => 
                     <p className={`text-sm ${textColor} opacity-70 mb-1`}>{title}</p>
                     <p className={`text-3xl font-bold ${textColor}`}>{value}</p>
                 </div>
-                <div className={`text-4xl ${textColor} opacity-60`}>{icon}</div>
+                <div className={`h-12 w-12 rounded-xl flex items-center justify-center text-2xl text-white ${bgColor}`}>
+                    {icon}
+                </div>
             </div>
         </div>
     );
