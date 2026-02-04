@@ -10,6 +10,14 @@ export const fetchLieux = createAsyncThunk(
   }
 );
 
+export const addLieu = createAsyncThunk(
+  'lieux/addLieu',
+  async (lieu: Omit<Lieu, 'id'>) => {
+    const response = await api.post('/lieux', lieu);
+    return response.data;
+  }
+);
+
 const initialState: LieuxState = {
   lieux: [],
   currentLieu: null,
@@ -38,6 +46,19 @@ const lieuxSlice = createSlice({
       .addCase(fetchLieux.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.error.message || 'Erreur lors du chargement';
+      })
+      // Add Lieu
+      .addCase(addLieu.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(addLieu.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.lieux.push(action.payload);
+      })
+      .addCase(addLieu.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.error.message || 'Erreur lors de l\'ajout';
       });
   },
 });
