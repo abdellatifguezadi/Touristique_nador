@@ -29,6 +29,7 @@ export interface LieuxState {
   currentLieu: Lieu | null;
   isLoading: boolean;
   error: string | null;
+  searchQuery?: string;
 }
 
 export interface NewsletterState {

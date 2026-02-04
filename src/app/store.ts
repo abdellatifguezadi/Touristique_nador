@@ -5,6 +5,7 @@ import lieuxReducer from '../features/lieux/lieuxSlice';
 export const store = configureStore({
   reducer: {
         lieux: lieuxReducer,
+      
   },
 });
 
