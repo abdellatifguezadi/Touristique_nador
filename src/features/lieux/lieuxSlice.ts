@@ -1,20 +1,18 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import api from '../../services/api';
-import type { Lieu, LieuxState } from '../../types';
+import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
+import type { LieuxState } from '../../types';
+import { fetchLieux } from './lieuxActions';
 
-export const fetchLieux = createAsyncThunk(
-  'lieux/fetchLieux',
-  async () => {
-    const response = await api.get('/lieux');
-    return response.data;
-  }
-);
+
+
 
 const initialState: LieuxState = {
   lieux: [],
   currentLieu: null,
   isLoading: false,
   error: null,
+  searchQuery: '',
+  statusFilter: '',
+  categoryFilter: ''
 };
 
 const lieuxSlice = createSlice({
@@ -24,6 +22,15 @@ const lieuxSlice = createSlice({
     clearCurrentLieu: (state) => {
       state.currentLieu = null;
     },
+    setSearchQuery: (state, action: PayloadAction<string>) => {
+      state.searchQuery = action.payload;
+    },
+    setStatusFilter: (state, action: PayloadAction<string>) => {
+      state.statusFilter = action.payload;
+    },
+    setCategoryFilter: (state, action: PayloadAction<string>) => {
+      state.categoryFilter = action.payload;
+    }
   },
   extraReducers: (builder) => {
     builder
@@ -37,10 +44,10 @@ const lieuxSlice = createSlice({
       })
       .addCase(fetchLieux.rejected, (state, action) => {
         state.isLoading = false;
-        state.error = action.error.message || 'Erreur lors du chargement';
+        state.error = (action.payload as string) || 'Erreur lors du chargement';
       });
   },
 });
 
-export const { clearCurrentLieu } = lieuxSlice.actions;
+export const { clearCurrentLieu, setSearchQuery, setStatusFilter, setCategoryFilter } = lieuxSlice.actions;
 export default lieuxSlice.reducer;
