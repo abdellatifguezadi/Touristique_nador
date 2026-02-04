@@ -50,4 +50,5 @@ const lieuxSlice = createSlice({
 });
 
 export const { clearCurrentLieu, setSearchQuery, setStatusFilter, setCategoryFilter } = lieuxSlice.actions;
+export { fetchLieux } from './lieuxActions';
 export default lieuxSlice.reducer;
