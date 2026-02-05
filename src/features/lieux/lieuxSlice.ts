@@ -1,14 +1,7 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk, type PayloadAction } from '@reduxjs/toolkit';
 import api from '../../services/api';
 import type { Lieu, LieuxState } from '../../types';
-
-export const fetchLieux = createAsyncThunk(
-  'lieux/fetchLieux',
-  async () => {
-    const response = await api.get('/lieux');
-    return response.data;
-  }
-);
+import { fetchLieux } from './lieuxActions';
 
 export const addLieu = createAsyncThunk(
   'lieux/addLieu',
@@ -23,6 +16,9 @@ const initialState: LieuxState = {
   currentLieu: null,
   isLoading: false,
   error: null,
+  searchQuery: '',
+  statusFilter: '',
+  categoryFilter: ''
 };
 
 const lieuxSlice = createSlice({
@@ -32,6 +28,15 @@ const lieuxSlice = createSlice({
     clearCurrentLieu: (state) => {
       state.currentLieu = null;
     },
+    setSearchQuery: (state, action: PayloadAction<string>) => {
+      state.searchQuery = action.payload;
+    },
+    setStatusFilter: (state, action: PayloadAction<string>) => {
+      state.statusFilter = action.payload;
+    },
+    setCategoryFilter: (state, action: PayloadAction<string>) => {
+      state.categoryFilter = action.payload;
+    }
   },
   extraReducers: (builder) => {
     builder
@@ -63,5 +68,6 @@ const lieuxSlice = createSlice({
   },
 });
 
-export const { clearCurrentLieu } = lieuxSlice.actions;
+export const { clearCurrentLieu, setSearchQuery, setStatusFilter, setCategoryFilter } = lieuxSlice.actions;
+export { fetchLieux } from './lieuxActions';
 export default lieuxSlice.reducer;

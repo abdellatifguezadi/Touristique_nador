@@ -13,8 +13,15 @@ export interface Lieu {
   adresse: string;
   moyens_transport: string[];
   accessibilite: string;
-  statut: string;
+  statut: LieuStatus;
 }
+
+export const LieuStatus = {
+  ACTIF: 'actif',
+  INACTIF: 'inactif',
+} as const;
+
+export type LieuStatus = typeof LieuStatus[keyof typeof LieuStatus];
 
 export interface User {
   
@@ -29,6 +36,9 @@ export interface LieuxState {
   currentLieu: Lieu | null;
   isLoading: boolean;
   error: string | null;
+  searchQuery?: string;
+  statusFilter?: string;
+  categoryFilter?: string;
 }
 
 export interface NewsletterState {
