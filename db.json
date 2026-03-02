@@ -20,7 +20,11 @@
       },
       "tarifs": "Gratuit",
       "adresse": "Nador, Maroc",
-      "moyens_transport": ["Bus", "Taxi", "Voiture"],
+      "moyens_transport": [
+        "Bus",
+        "Taxi",
+        "Voiture"
+      ],
       "accessibilite": "Accessible aux personnes à mobilité réduite",
       "statut": "actif"
     },
@@ -38,7 +42,10 @@
       },
       "tarifs": "Gratuit",
       "adresse": "Charrana, Nador, Maroc",
-      "moyens_transport": ["Voiture", "Taxi"],
+      "moyens_transport": [
+        "Voiture",
+        "Taxi"
+      ],
       "accessibilite": "Plage accessible",
       "statut": "actif"
     },
@@ -56,9 +63,41 @@
       },
       "tarifs": "Gratuit",
       "adresse": "Mont Gourougou, Nador",
-      "moyens_transport": ["Voiture", "Taxi"],
+      "moyens_transport": [
+        "Voiture",
+        "Taxi"
+      ],
       "accessibilite": "Randonnée difficile pour personnes à mobilité réduite",
       "statut": "actif"
+    },
+    {
+      "nom": "Dolore in et ratione",
+      "categorie": "Sites naturels",
+      "description": "Consequatur Sit au fdjslkfjlsd lkjdfkslfjsld  ljsfdjkslf",
+      "photos": [
+        "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/08/3e/a7/6d/getlstd-property-photo.jpg?w=700&h=700&s=1"
+      ],
+      "horaires": {
+        "lundi": "Sunt iure in consec",
+        "mardi": "Dolorum sed ad praes",
+        "mercredi": "Ab a expedita fugiat",
+        "jeudi": "A veniam et repudia",
+        "vendredi": "Voluptas voluptatem ",
+        "samedi": "Fugiat cumque velit",
+        "dimanche": "Proident tempore u"
+      },
+      "tarifs": "Architecto esse non",
+      "adresse": "Facere aut velit qua",
+      "moyens_transport": [
+        "Bus",
+        "Voiture",
+        "A pied"
+      ],
+      "accessibilite": "Consequat Harum lab",
+      "statut": "actif",
+      "createdAt": "2026-03-01T14:03:59.960Z",
+      "updatedAt": "2026-03-01T14:06:40.284Z",
+      "id": 4
     }
   ]
 }
