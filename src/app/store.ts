@@ -1,11 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit';
 import lieuxReducer from '../features/lieux/lieuxSlice';
+import authReducer from '../features/auth/authSlice';
 
 
 export const store = configureStore({
   reducer: {
         lieux: lieuxReducer,
-      
+        auth : authReducer,
   },
 });
 
