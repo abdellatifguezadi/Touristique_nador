@@ -1,5 +1,26 @@
 // Types pour l'application touristique
 
+export const PLACE_CATEGORIES = [
+  'Plages',
+  'Sites naturels',
+  'Monuments et patrimoine',
+  'Musees et culture',
+  'Restaurants',
+  'Hotels et hebergements',
+  'Cafes et salons de the',
+  'Shopping et souks',
+  'Loisirs et divertissements',
+] as const;
+
+export const LIEU_STATUS = {
+  ACTIF: 'actif',
+  INACTIF: 'inactif',
+} as const;
+
+export const LieuStatus = LIEU_STATUS;
+
+export type LieuStatus = (typeof LIEU_STATUS)[keyof typeof LIEU_STATUS];
+
 export interface Lieu {
   id: number;
   nom: string;
@@ -14,14 +35,9 @@ export interface Lieu {
   moyens_transport: string[];
   accessibilite: string;
   statut: LieuStatus;
+  createdAt?: string;
+  updatedAt?: string;
 }
-
-export const LieuStatus = {
-  ACTIF: 'actif',
-  INACTIF: 'inactif',
-} as const;
-
-export type LieuStatus = typeof LieuStatus[keyof typeof LieuStatus];
 
 export interface User {
   id : number;
@@ -51,6 +67,4 @@ export interface LieuxState {
   categoryFilter?: string;
 }
 
-export interface NewsletterState {
-  
-}
+export interface NewsletterState {}
