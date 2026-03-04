@@ -98,6 +98,37 @@
       "createdAt": "2026-03-01T14:03:59.960Z",
       "updatedAt": "2026-03-01T14:06:40.284Z",
       "id": 4
+    },
+    {
+      "nom": "chabiba place",
+      "categorie": "Restaurants",
+      "description": "test chabiba place nador route taouima 2",
+      "photos": [
+        "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/08/3e/a7/6d/getlstd-property-photo.jpg?w=700&h=700&s=1",
+        "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/08/3e/a7/6d/getlstd-property-photo.jpg?w=700&h=700&s=1"
+      ],
+      "horaires": {
+        "lundi": "",
+        "mardi": "",
+        "mercredi": "",
+        "jeudi": "",
+        "vendredi": "",
+        "samedi": "",
+        "dimanche": ""
+      },
+      "tarifs": "00",
+      "adresse": "nador",
+      "moyens_transport": [
+        "Bus",
+        "Taxi",
+        "Voiture",
+        "A pied"
+      ],
+      "accessibilite": "parking",
+      "statut": "actif",
+      "createdAt": "2026-03-02T09:34:12.922Z",
+      "updatedAt": "2026-03-02T09:35:31.578Z",
+      "id": 5
     }
   ]
 }

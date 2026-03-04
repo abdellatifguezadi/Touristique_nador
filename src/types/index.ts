@@ -39,9 +39,23 @@ export interface Lieu {
   updatedAt?: string;
 }
 
-export interface User {}
+export interface User {
+  id : number;
+  nom: string;
+  email: string;
+  firstName: string;
+  lastName: string;
+  gender: "male" | "female" ;
+  image: string;
+  token: string;
+}
 
-export interface AuthState {}
+export interface AuthState {
+  user: User | null;
+  token: string | null;
+  loading: boolean;
+  error: string | null;
+}
 
 export interface LieuxState {
   lieux: Lieu[];
