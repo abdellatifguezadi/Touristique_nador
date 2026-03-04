@@ -3,9 +3,12 @@ import { loginUser } from './authActions';
 import type { AuthState } from '../../types';
 
 
+const storedUser = typeof localStorage !== 'undefined' ? localStorage.getItem('user') : null;
+const storedToken = typeof localStorage !== 'undefined' ? localStorage.getItem('token') : null;
+
 const initialState: AuthState = {
-  user: null,
-  token: null,
+  user: storedUser ? JSON.parse(storedUser) : null,
+  token: storedToken ?? null,
   loading: false,
   error: null,
 };
